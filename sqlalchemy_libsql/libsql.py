@@ -52,6 +52,8 @@ class SQLiteDialect_libsql(SQLiteDialect_pysqlite):
         return libsql
 
     def on_connect(self):
+        import libsql
+
         sqlite3_connect = super().on_connect()
 
         def connect(conn):
@@ -68,7 +70,7 @@ class SQLiteDialect_libsql(SQLiteDialect_pysqlite):
             ("timeout", float),
             ("isolation_level", str),
             ("detect_types", int),
-            ("check_same_thread", bool),
+            # ("check_same_thread", bool),
             ("cached_statements", int),
             ("secure", bool),  # LibSQL extra, selects between ws and wss
         )
@@ -101,7 +103,7 @@ class SQLiteDialect_libsql(SQLiteDialect_pysqlite):
             if connect_url != ":memory:":
                 connect_url = os.path.abspath(connect_url)
 
-        libsql_opts.setdefault("check_same_thread", not self._is_url_file_db(url))
+        # libsql_opts.setdefault("check_same_thread", not self._is_url_file_db(url))
 
         return ([connect_url], libsql_opts)
 
