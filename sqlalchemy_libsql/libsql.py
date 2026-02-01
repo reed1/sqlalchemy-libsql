@@ -66,7 +66,7 @@ class SQLiteDialect_libsql(SQLiteDialect_pysqlite):
 
     def create_connect_args(self, url):
         pysqlite_args = (
-            ("uri", bool),
+            ("_uri", bool),
             ("timeout", float),
             ("isolation_level", str),
             ("detect_types", int),
@@ -80,9 +80,9 @@ class SQLiteDialect_libsql(SQLiteDialect_pysqlite):
             util.coerce_kw_type(opts, key, type_, dest=libsql_opts)
 
         if url.host:
-            libsql_opts["uri"] = True
+            libsql_opts["_uri"] = True
 
-        if libsql_opts.get("uri", False):
+        if libsql_opts.get("_uri", False):
             uri_opts = dict(opts)
             # here, we are actually separating the parameters that go to
             # sqlite3/pysqlite vs. those that go the SQLite URI.  What if
